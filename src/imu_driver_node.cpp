@@ -35,9 +35,9 @@ int main(int argc, char **argv){
     my_imu::imu_1750 imu("/dev/ttyUSB0");   // open ttyUSB0. Make sure to 'sudo chmod 777 /dev/ttyUSB0'
 
     int counter = 0;
-    while(ros::ok()){
-        my_imu::Imu_Data raw_data;
-        sensor_msgs::Imu imu_data;
+    my_imu::Imu_Data raw_data;
+    sensor_msgs::Imu imu_data;
+    while(1){
         if(imu.get_data(raw_data)){
             imu_data = toRosMsg(raw_data);
             pub.publish(imu_data);
