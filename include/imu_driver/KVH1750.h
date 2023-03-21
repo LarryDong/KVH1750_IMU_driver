@@ -8,8 +8,6 @@
 #include <iostream>
 #include <boost/asio.hpp>
 
-#define Gravity (9.8065f)
-
 namespace my_imu{
 
 struct Imu_Data{

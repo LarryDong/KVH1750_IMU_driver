@@ -16,14 +16,8 @@ imu_1750::imu_1750(std::string dev):portName_(std::move(dev)){
         sp_->set_option(serial_port::stop_bits(serial_port::stop_bits::one));
         sp_->set_option(serial_port::character_size(8));
     }catch (...){
-        std::cerr << "Exception Error: Cannot open imu. Msg: " << err_.message() << std::endl;
+        std::cerr << "Exception Error: Cannot open imu. Did run 'chmod' before?"<< std::endl;
     }
-    // // io control
-    // boost::asio::basic_serial_port<boost::asio::serial_port_service>::native_type native = serial_port_.native(); // serial_port_ is the boost's serial port class.
-    // struct serial_struct serial;
-    // ioctl(sp_, TIOCGSERIAL, &serial);
-    // serial.flags |= ASYNC_LOW_LATENCY; // (0x2000)
-    // ioctl(sp_, TIOCSSERIAL, &serial);
 }
 
 bool imu_1750::get_data(Imu_Data &data){
@@ -33,7 +27,6 @@ bool imu_1750::get_data(Imu_Data &data){
             read(*sp_, boost::asio::buffer(msg, 1), err_);
             if(msg[0] == 0xFE){
                 read(*sp_, boost::asio::buffer(&msg[1], 3), err_);
-
             }
             if(msg[0] == 0xFE && msg[1] == 0x81 &&msg[2] == 0xFF && msg[3] == 0x55){
                 read(*sp_, boost::asio::buffer(&msg[4], 32), err_);
@@ -66,10 +59,9 @@ bool imu_1750::get_data(Imu_Data &data){
 
 
 
-
 void show_data(Imu_Data d){
     using namespace std;
-    cout << "Data:" << endl;
+    cout << "Data (gyro: rad/s, acc: m/s^2):" << endl;
     cout << "gyro: " << d.gyro[0] << ", " << d.gyro[1] << ", " << d.gyro[2] << endl;
     cout << "acc: " << d.acc[0] << ", " << d.acc[1] << ", " << d.acc[2] << endl;
 }

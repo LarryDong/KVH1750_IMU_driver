@@ -1,12 +1,14 @@
 # KVH1750_IMU_driver
 
-Writen by LYC, and modified by me.
+KVH1750's USB driver. (Using RS232->USB).  
+Writen by LYC, and modified by me.  
 
 ## Usage
 ```bash
 sudo bash serialport_modify.bash
-rosrun kvh1750_driver kvh1750_node
+roslaunch kvh1750_driver kvh1750.launch
 ```
+Modify the `serial_port`, and other params in launch.
 
 - View
 In rviz, add imu's topic and change Fixed frame to "imu".

@@ -1,0 +1,9 @@
+
+<launch>
+    <node pkg="kvh1750_driver" type="kvh1750_node" name="kvh1750_node" output="screen"> 
+        <param name="usb_port" type="string" value= "/dev/ttyUSB0"/>
+        <param name="imu_topic" type="string" value= "/kvh/imu"/>
+        <!-- print every 100 messages -->
+        <param name="print_counter" type="int" value= "100"/>           
+    </node>
+</launch>
