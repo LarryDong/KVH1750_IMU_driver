@@ -16,7 +16,7 @@ sensor_msgs::Imu toRosMsg(const my_imu::Imu_Data & rawdata){
     sensor_msgs::Imu imu_data;
     imu_data.header.stamp = ros::Time::now();
     imu_data.header.frame_id = "imu";
-    imu_data.header.seq = rawdata.sequence_num;
+    imu_data.header.seq = rawdata.sequence_num;         // due to ROS issue, the `seq` cannot be changed
     double scale = 1.0f;
     imu_data.angular_velocity.x = rawdata.gyro[0] * DEG2RAD;
     imu_data.angular_velocity.y = rawdata.gyro[1] * DEG2RAD;
